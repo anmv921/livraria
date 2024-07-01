@@ -1,0 +1,1 @@
+sudo cp -r /home/andriy/Desktop/Code/livraria/livraria/ex_8 /opt/lampp/htdocs/aulas_php/
