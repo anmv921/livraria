@@ -1,5 +1,6 @@
 <?php
-include('../config.php');
+    include('../config.php');
+    include('../objetos/livros/Livros.php');
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,20 @@ include('../config.php');
 </head>
 
 <body>
+
+    <?php
+        if(
+            isset($_GET['id'])
+        ) {
+            $livro_obtido = 
+            Livro::getLivroById(
+                $ligacao,
+                $_GET['id']
+            );
+
+            print_r($livro_obtido);
+        }
+    ?>
 
     <h1>
         Insere novo livro

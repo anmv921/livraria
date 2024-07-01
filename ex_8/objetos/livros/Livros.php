@@ -210,4 +210,57 @@ class Livro
 
         $ligacao->query($sql);
     } // End save
-}
+
+    public static function getLivros($ligacao) {
+        $lista = [];
+
+        $sql = "select * from livros";
+
+        $resultado = $ligacao->query($sql);
+        
+        while ($linha = mysqli_fetch_assoc($resultado) )
+        {
+            $livro = new self(
+                $linha['id_livro'],
+                $linha['fk_id_editora'],
+                $linha['fk_id_genero'],
+                $linha['titulo_livro'],
+                $linha['sinopse_livro'],
+                $linha['isbn_livro'],
+                $linha['preco_livro'],
+                $linha['stock_livro'],
+                $linha['num_pag_livro'],
+                $linha['act_livro'],
+                $linha['del_livro'],
+                $linha['ts_livro'],
+                $linha['capa_livro']
+            );
+            $lista[] = $livro;
+        }
+        return $lista;
+    } // End getLivros
+
+    public static function getLivroById($ligacao, $id) {
+        $sql = "select * from livros where id_livro=$id";
+        $resultado = $ligacao->query($sql);
+        $linha = mysqli_fetch_assoc($resultado);
+        $livro = new self(
+            $linha['id_livro'],
+            $linha['fk_id_editora'],
+            $linha['fk_id_genero'],
+            $linha['titulo_livro'],
+            $linha['sinopse_livro'],
+            $linha['isbn_livro'],
+            $linha['preco_livro'],
+            $linha['stock_livro'],
+            $linha['num_pag_livro'],
+            $linha['act_livro'],
+            $linha['del_livro'],
+            $linha['ts_livro'],
+            $linha['capa_livro']
+        );
+        return $livro;
+    }
+
+} // End class Livro
+

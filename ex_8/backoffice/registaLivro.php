@@ -12,8 +12,6 @@
     print_r($_FILES);
     echo "</pre>";
 
-    
-
     $nome_do_ficheiro = $_FILES['capa_livro']['name'];
 
     $nome_do_ficheiro_explodido = explode('.', $nome_do_ficheiro);
@@ -56,6 +54,6 @@
     print_r($livro);
     echo "</pre>";
 
-    //$livro->save($ligacao);
+    $livro->save($ligacao);
 
 ?>
