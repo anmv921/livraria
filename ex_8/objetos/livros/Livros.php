@@ -211,6 +211,66 @@ class Livro
         $ligacao->query($sql);
     } // End save
 
+    public function update($ligacao) {
+
+        $sql = "update livros
+        set titulo_livro='$this->titulo_livro',
+        fk_id_editora=$this->fk_id_editora,
+        fk_id_genero=$this->fk_id_genero,
+        isbn_livro='$this->isbn_livro',
+        sinopse_livro='$this->sinopse_livro'";
+
+        if ($this->preco_livro !== "") {
+            $sql .= ",preco_livro=$this->preco_livro";
+        }
+        if ($this->stock_livro !== "") {
+            $sql .= ",stock_livro=$this->stock_livro";
+        }
+        if ($this->num_pag_livro !== "") {
+            $sql .= ",num_pag_livro=$this->num_pag_livro";
+        }
+        if ($this->capa_livro != '') {
+            $sql .= ",capa_livro='$this->capa_livro'";
+        }
+        $sql .= "where id_livro=$this->id_livro";
+        
+        echo "preco vazio: " . ($this->preco_livro == "") . "<br>";
+
+        // if ($this->capa_livro != '') {
+        //     $sql = "update livros
+        //     set titulo_livros='$this->titulo_livro',
+        //     fk_id_editora=$this->fk_id_editora,
+        //     fk_id_genero=$this->fk_id_genero,
+        //     isbn_livro='$this->isbn_livro',
+        //     sinopse_livro='$this->sinopse_livro',
+
+        //     preco_livro=$this->preco_livro,
+        //     stock_livro=$this->stock_livro,
+        //     num_pag_livro=$this->num_pag_livro,
+
+        //     capa_livro='$this->capa_livro',
+
+        //     where id_livro=$this->id_livro";
+        // }
+        // else {
+        //     $sql = "update livros
+        //     set titulo_livros='$this->titulo_livro',
+        //     fk_id_editora=$this->fk_id_editora,
+        //     fk_id_genero=$this->fk_id_genero,
+        //     isbn_livro='$this->isbn_livro',
+        //     sinopse_livro='$this->sinopse_livro',
+        //     preco_livro=$this->preco_livro,
+        //     stock_livro=$this->stock_livro,
+        //     num_pag_livro=$this->num_pag_livro,
+        //     where id_livro=$this->id_livro";
+        // }
+
+        echo $sql;
+
+        $ligacao->query($sql);
+
+    } // End function update
+
     public static function getLivros($ligacao) {
         $lista = [];
 
@@ -260,7 +320,9 @@ class Livro
             $linha['capa_livro']
         );
         return $livro;
-    }
+    } // End function getLivroById
+
+
 
 } // End class Livro
 
