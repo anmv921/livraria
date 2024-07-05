@@ -2,7 +2,6 @@
     include('../config.php');
     include('../objetos/livros/Livros.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,13 +15,7 @@
         Livro::getLivros(
             $ligacao
         );
-
-        // echo "<pre>";
-        // print_r($lista_de_livros);
-        // echo "</pre>";
-
         foreach($lista_de_livros as $livro) { ?>
-
             <ul>
                 <li>
                     <a href="formularioLivro.php?id=<?php echo $livro->getId(); ?>" >
@@ -30,9 +23,13 @@
                     </a>
                 </li>
             </ul>
-
         <?php 
             }
         ?>
+
+
+<a href="exportaParaCSV.php">
+        Gerar ficheiro lista de livros
+    </a>
 </body>
 </html>

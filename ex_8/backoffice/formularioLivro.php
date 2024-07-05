@@ -37,8 +37,6 @@
             echo "<pre>";
             print_r($livro_obtido);
             echo "</pre>";
-            // $_POST['id_do_livro'] = $_GET['id'];
-            // $value_titulo = $livro_obtido->getTituloLivro();
         }
     ?>
     <h1>
@@ -56,7 +54,7 @@
                 echo "";
             }
             ?>" >
-            
+
         <table>
             <tr>
                 <td>
@@ -130,7 +128,7 @@
                         while ($linha = mysqli_fetch_assoc($resultado)) {
                         ?>
                             <option value="<?php echo $linha['id_editora'] ?>"
-                            <?php echo ($linha['id_editora']==$livro_obtido->getId()) ? "selected" : ""; ?>
+                            <?php echo ( isset($livro_obtido) && ($linha['id_editora']==$livro_obtido->getId())) ? "selected" : ""; ?>
                             >
                                 <?php
                                 echo $linha['nome_editora'];
@@ -157,9 +155,16 @@
                 <?php } ?>
             </tr>
         </table>
+
         <button type="submit">
             Guardar
         </button>
+
     </form>
+
+    <a href="exportaLivros.php">
+        Gerar ficheiro lista de livros
+    </a>
+
 </body>
 </html>

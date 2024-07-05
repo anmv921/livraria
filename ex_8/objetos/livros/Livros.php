@@ -233,42 +233,10 @@ class Livro
             $sql .= ",capa_livro='$this->capa_livro'";
         }
         $sql .= "where id_livro=$this->id_livro";
-        
-        echo "preco vazio: " . ($this->preco_livro == "") . "<br>";
-
-        // if ($this->capa_livro != '') {
-        //     $sql = "update livros
-        //     set titulo_livros='$this->titulo_livro',
-        //     fk_id_editora=$this->fk_id_editora,
-        //     fk_id_genero=$this->fk_id_genero,
-        //     isbn_livro='$this->isbn_livro',
-        //     sinopse_livro='$this->sinopse_livro',
-
-        //     preco_livro=$this->preco_livro,
-        //     stock_livro=$this->stock_livro,
-        //     num_pag_livro=$this->num_pag_livro,
-
-        //     capa_livro='$this->capa_livro',
-
-        //     where id_livro=$this->id_livro";
-        // }
-        // else {
-        //     $sql = "update livros
-        //     set titulo_livros='$this->titulo_livro',
-        //     fk_id_editora=$this->fk_id_editora,
-        //     fk_id_genero=$this->fk_id_genero,
-        //     isbn_livro='$this->isbn_livro',
-        //     sinopse_livro='$this->sinopse_livro',
-        //     preco_livro=$this->preco_livro,
-        //     stock_livro=$this->stock_livro,
-        //     num_pag_livro=$this->num_pag_livro,
-        //     where id_livro=$this->id_livro";
-        // }
-
+        echo "preco vazio: " .
+            ($this->preco_livro == "") . "<br>";
         echo $sql;
-
         $ligacao->query($sql);
-
     } // End function update
 
     public static function getLivros($ligacao) {
@@ -299,7 +267,6 @@ class Livro
         }
         return $lista;
     } // End getLivros
-
     public static function getLivroById($ligacao, $id) {
         $sql = "select * from livros where id_livro=$id";
         $resultado = $ligacao->query($sql);
@@ -321,8 +288,5 @@ class Livro
         );
         return $livro;
     } // End function getLivroById
-
-
-
 } // End class Livro
 
