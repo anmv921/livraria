@@ -1,18 +1,6 @@
 <?php
-
     include("../objetos/livros/Livros.php");
-
     include('../config.php');
-
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-
-    echo "<br>files:<br>";
-    echo "<pre>";
-    print_r($_FILES);
-    echo "</pre>";
-
     if($_FILES['capa_livro']['name'] != '') {
 
         $nome_do_ficheiro = $_FILES['capa_livro']['name'];
@@ -23,11 +11,8 @@
         $novo_nome_completo = "$novo_nome.$extensao";
         $destino = "../imagens/$novo_nome_completo";
         $origem = $_FILES['capa_livro']['tmp_name'];
-        echo "origem - " . $origem;
-        echo "<br>";
-        echo "destino - " . $destino;
         $movido = move_uploaded_file($origem, $destino);
-        echo "<br>movido - " . $movido . "<br>";
+        
     } else {
         $novo_nome_completo = '';
     }
@@ -35,7 +20,7 @@
     $livro = new Livro(
         null,
         $_POST['editora'],
-        1,
+        $_POST['genero'],
         $_POST['titulo'],
         $_POST['sinopse'],
         $_POST['isbn'],
@@ -48,29 +33,26 @@
         $novo_nome_completo 
     );
 
-    echo "livro:<br>";
-    echo "<pre>";
-    print_r($livro);
-    echo "</pre>";
-
-    echo "post:<br>";
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-
-    if($_POST['id_do_livro']=="") {
-        $livro->save($ligacao);
+    $erro = false;
+    if($_POST['editora'] == 0 ) {
+        echo "<br>Por favor escolha uma editora<br>";
+        $erro = true;
+    } 
+    if ($_POST['genero'] == 0) {
+        echo "<br>Por favor escolha um genero<br>";
+        $erro = true;
+    } 
+    if (!$erro) {
+        if($_POST['id_do_livro']=="") {
+            $livro->save($ligacao);
+        }
+        else {
+            $livro->setId($_POST['id_do_livro']);
+            echo "VOU ATUALIZAR";
+            $livro->update($ligacao);
+        }
+        header('location:lista_livros.php');
     }
-    else {
-        $livro->setId($_POST['id_do_livro']);
 
-        echo "VOU ATUALIZAR";
-
-        echo "<pre>";
-        print_r($livro);
-        echo "</pre>";
-
-        $livro->update($ligacao);
-    }
-    header('location:lista_livros.php');
+    
 ?>

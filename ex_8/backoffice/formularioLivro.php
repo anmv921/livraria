@@ -34,9 +34,6 @@
                 $ligacao,
                 $_GET['id']
             );
-            echo "<pre>";
-            print_r($livro_obtido);
-            echo "</pre>";
         }
     ?>
     <h1>
@@ -113,28 +110,61 @@
                     value="<?php echo (isset($_GET['id'])) ? $livro_obtido->getNumPaginas() : ""; ?>">
                 </td>
             </tr>
+
+            <tr>
+                <td>Genero</td>
+                <td>
+                    <select name="genero" >
+                        <option value="0">
+                            Escolha um genero
+                        </option>
+
+                        <!-- obter os generos base de dados -->
+                        <?php
+                        $sqlGeneros = "select * from generos";
+                        $resultado = $ligacao->query($sqlGeneros);
+                        while ($linha = mysqli_fetch_assoc($resultado)) {
+                        ?>
+                            <option value="<?php echo $linha['id_genero'] ?>"
+                            <?php echo ( isset($livro_obtido) && ($linha['id_genero']==$livro_obtido->getIdGenero())) ? "selected" : ""; ?>
+                            >
+                                <?php
+                                echo $linha['nome_genero'];
+                                ?>
+                            </option>
+                        <?php } ?>
+
+
+                    </select>
+                </td>
+            </tr>
+
             <tr>
                 <td>
                     Editora
                 </td>
                 <td>
                     <select name="editora">
+
                         <option value="0">
                             Escolha uma editora
                         </option>
+
+                        <!-- obter as editoras da base de dados -->
                         <?php
                         $sqlEditoras = "select * from editoras";
                         $resultado = $ligacao->query($sqlEditoras);
                         while ($linha = mysqli_fetch_assoc($resultado)) {
                         ?>
                             <option value="<?php echo $linha['id_editora'] ?>"
-                            <?php echo ( isset($livro_obtido) && ($linha['id_editora']==$livro_obtido->getId())) ? "selected" : ""; ?>
+                            <?php echo ( isset($livro_obtido) && ($linha['id_editora']==$livro_obtido->getIdEditora())) ? "selected" : ""; ?>
                             >
                                 <?php
                                 echo $linha['nome_editora'];
                                 ?>
                             </option>
                         <?php } ?>
+
                     </select>
                 </td>
             </tr>
@@ -144,9 +174,14 @@
                     <input type="file" name="capa_livro" >   
                 </td>
                 <?php 
-                if(isset($_GET['id']) && 
-                ($livro_obtido->getCapa()!="" || 
-                !is_null($livro_obtodo->getCapa() ) ) )
+
+                if(
+                    isset($_GET['id']) && 
+                    (
+                        $livro_obtido->getCapa()!="" &&
+                        !is_null( $livro_obtido->getCapa() ) 
+                    ) 
+                )
                 { ?>
                     <img 
                     src="../imagens/<?php echo $livro_obtido->getCapa(); ?>" 

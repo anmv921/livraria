@@ -2,6 +2,9 @@
 
 class Livro
 {
+    // ********************* //
+    // Propriedades do livro //
+    // ********************* //
     private $id_livro;
     private $fk_id_editora;
     private $fk_id_genero;
@@ -16,6 +19,9 @@ class Livro
     private $ts_livro;
     private $capa_livro;
 
+    // *********** //
+    // Constructor //
+    // *********** //
     public function __construct(
         $id_livro = null,
         $fk_id_editora,
@@ -211,6 +217,9 @@ class Livro
         $ligacao->query($sql);
     } // End save
 
+    // ***************** //
+    // Atualizar o livro //
+    // ***************** //
     public function update($ligacao) {
 
         $sql = "update livros
@@ -239,6 +248,9 @@ class Livro
         $ligacao->query($sql);
     } // End function update
 
+    // ********************* //
+    // Obter todos os livros //
+    // ********************* //
     public static function getLivros($ligacao) {
         $lista = [];
 
@@ -267,6 +279,10 @@ class Livro
         }
         return $lista;
     } // End getLivros
+
+    // ************************ //
+    // Obter um livro espeifico //
+    // ************************ //
     public static function getLivroById($ligacao, $id) {
         $sql = "select * from livros where id_livro=$id";
         $resultado = $ligacao->query($sql);
